@@ -1,45 +1,64 @@
 import { lazy, Suspense, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useScene } from '../../context/useScene'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const SkillSphereScene = lazy(() => import('../../three/scenes/SkillSphereScene'))
 
-type Skill = {
-  name: string
-  level: number
-}
-
-const skills: Skill[] = [
-  { name: 'React', level: 92 },
-  { name: 'Three.js', level: 76 },
-  { name: 'TypeScript', level: 88 },
-  { name: 'GSAP', level: 84 },
-  { name: 'Node.js', level: 79 },
+const strengths = [
+  {
+    title: 'Product Interface Engineering',
+    text: 'Architected React interfaces with strong information hierarchy, conversion-aware UX, and production maintainability.',
+  },
+  {
+    title: 'System Design For Web Products',
+    text: 'Designed async job flows, queue-backed processing, and resilient APIs for high concurrency and predictable behavior.',
+  },
+  {
+    title: 'Observability And Reliability',
+    text: 'Implemented Prometheus and Grafana telemetry, meaningful service health signals, and failure-aware retry workflows.',
+  },
 ]
 
-const techGrid = ['React', 'Three.js', 'TypeScript', 'Node.js', 'GSAP', 'Tailwind CSS']
+const stackBands = [
+  {
+    label: 'Frontend Craft',
+    items: ['React', 'TypeScript', 'Three.js', 'GSAP', 'Framer Motion', 'Tailwind CSS'],
+  },
+  {
+    label: 'Backend Systems',
+    items: ['Node.js', 'Express', 'Redis', 'BullMQ', 'Supabase'],
+  },
+  {
+    label: 'Platform And Ops',
+    items: ['Prometheus', 'Grafana', 'Docker', 'AWS ECS', 'Vercel'],
+  },
+]
 
 export default function Skills() {
-  const barsRef = useRef<Array<HTMLDivElement | null>>([])
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([])
+  const { setInteraction, setCameraMode } = useScene()
 
   useEffect(() => {
-    const animations = barsRef.current.map((bar, index) => {
-      if (!bar) {
+    const animations = cardRefs.current.map((card, index) => {
+      if (!card) {
         return null
       }
 
       return gsap.fromTo(
-        bar,
-        { width: '0%' },
+        card,
+        { y: 28, opacity: 0 },
         {
-          width: `${skills[index].level}%`,
-          duration: 1.1,
+          y: 0,
+          opacity: 1,
+          duration: 0.48,
+          delay: index * 0.045,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: bar,
-            start: 'top 86%',
+            trigger: card,
+            start: 'top 84%',
           },
         },
       )
@@ -54,45 +73,45 @@ export default function Skills() {
     <section id="skills" className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 md:px-10">
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl md:p-8">
-          <h2 className="font-display text-3xl font-bold text-white md:text-4xl">Skills</h2>
+          <h2 className="font-display text-3xl font-bold text-white md:text-4xl">What I Bring To Engineering Teams</h2>
           <p className="mt-3 max-w-2xl text-slate-300">
-            Recruiter-friendly capability mapping with motion-driven bars and a clean tech stack panel.
+            I am strongest where interface quality, backend systems, and measurable reliability need to be solved together.
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <div className="rounded-lg border border-neonCyan/30 bg-neonCyan/10 px-4 py-3 transition-colors duration-200 hover:bg-neonCyan/15">
               <p className="text-xs uppercase tracking-[0.16em] text-slate-300">Execution</p>
-              <p className="mt-1 font-display text-xl font-semibold text-neonCyan">Fast Iteration</p>
+              <p className="mt-1 font-display text-xl font-semibold text-neonCyan">Scope With Intent</p>
             </div>
             <div className="rounded-lg border border-neonBlue/30 bg-neonBlue/10 px-4 py-3 transition-colors duration-200 hover:bg-neonBlue/15">
               <p className="text-xs uppercase tracking-[0.16em] text-slate-300">Systems</p>
-              <p className="mt-1 font-display text-xl font-semibold text-neonBlue">Architecture Focus</p>
+              <p className="mt-1 font-display text-xl font-semibold text-neonBlue">Reliability Thinking</p>
             </div>
             <div className="rounded-lg border border-neonGreen/30 bg-neonGreen/10 px-4 py-3 transition-colors duration-200 hover:bg-neonGreen/15">
               <p className="text-xs uppercase tracking-[0.16em] text-slate-300">Delivery</p>
-              <p className="mt-1 font-display text-xl font-semibold text-neonGreen">Product Polish</p>
+              <p className="mt-1 font-display text-xl font-semibold text-neonGreen">Production Finish</p>
             </div>
           </div>
 
-          <div className="mt-9 space-y-5">
-            {skills.map((skill, index) => (
+          <div className="mt-9 space-y-4">
+            {strengths.map((strength, index) => (
               <div
-                key={skill.name}
+                key={strength.title}
+                ref={(element) => {
+                  cardRefs.current[index] = element
+                }}
+                onMouseEnter={() => {
+                  setInteraction('hover')
+                  setCameraMode('focus')
+                }}
+                onMouseLeave={() => {
+                  setInteraction('idle')
+                  setCameraMode('wide')
+                }}
                 className="rounded-lg border border-white/10 bg-black/15 px-4 py-3 transition-colors duration-200 hover:border-neonCyan/40 hover:bg-black/30"
               >
-                <div className="mb-1.5 flex items-center justify-between text-sm text-slate-200">
-                  <span className="font-semibold">{skill.name}</span>
-                  <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-xs text-slate-200">{skill.level}%</span>
-                </div>
-                <div className="h-2.5 w-full rounded-full bg-slate-700/60">
-                  <div
-                    ref={(element) => {
-                      barsRef.current[index] = element
-                    }}
-                    className="skill-bar-fill h-2.5 rounded-full bg-gradient-to-r from-neonCyan to-neonGreen"
-                    style={{ width: 0 }}
-                  />
-                </div>
+                <p className="font-display text-xl font-semibold text-white">{strength.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{strength.text}</p>
               </div>
             ))}
           </div>
@@ -100,14 +119,18 @@ export default function Skills() {
 
         <div className="space-y-8">
           <div className="rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl md:p-8">
-            <h3 className="font-display text-2xl font-bold text-white">Tech Stack</h3>
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              {techGrid.map((item) => (
-                <div
-                  key={item}
-                  className="cursor-pointer rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-center text-sm font-semibold text-slate-100 transition duration-200 hover:-translate-y-0.5 hover:border-neonCyan/60 hover:bg-neonCyan/10 hover:shadow-glow"
-                >
-                  {item}
+            <h3 className="font-display text-2xl font-bold text-white">Capability Map</h3>
+            <div className="mt-5 space-y-5">
+              {stackBands.map((band) => (
+                <div key={band.label}>
+                  <p className="text-xs uppercase tracking-[0.18em] text-neonBlue">{band.label}</p>
+                  <div className="mt-2 flex flex-wrap gap-2.5">
+                    {band.items.map((item) => (
+                      <span key={`${band.label}-${item}`} className="rounded-md border border-white/15 bg-black/25 px-3 py-1.5 text-xs font-semibold text-slate-100">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
