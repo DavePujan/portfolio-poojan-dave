@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 type MousePosition = {
   x: number
@@ -6,11 +6,15 @@ type MousePosition = {
 }
 
 export default function useMouse() {
-  const [position, setPosition] = useState<MousePosition>({ x: 0, y: 0 })
+  const positionRef = useRef<MousePosition>({ x: 0, y: 0 })
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     const onMove = (event: MouseEvent) => {
-      setPosition({ x: event.clientX, y: event.clientY })
+      positionRef.current = { x: event.clientX, y: event.clientY }
     }
 
     window.addEventListener('mousemove', onMove)
@@ -20,5 +24,5 @@ export default function useMouse() {
     }
   }, [])
 
-  return position
+  return positionRef
 }
