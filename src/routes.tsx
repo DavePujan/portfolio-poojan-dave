@@ -9,7 +9,13 @@ const ProjectDetails = lazy(() => import('./pages/ProjectDetails'))
 const Projects = lazy(() => import('./pages/Projects'))
 
 function RouteFallback() {
-  return <div className="flex min-h-screen items-center justify-center text-sm uppercase tracking-[0.2em] text-neonCyan">Loading</div>
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-ink px-6 text-center" role="status" aria-live="polite">
+      <div className="rounded-xl border border-white/15 bg-white/5 px-6 py-4 backdrop-blur-xl">
+        <p className="text-xs uppercase tracking-[0.2em] text-neonCyan">Loading Experience...</p>
+      </div>
+    </div>
+  )
 }
 
 function withSuspense(element: ReactElement) {
@@ -28,9 +34,10 @@ export default function AppRoutes({ location }: { location: Location }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.985, y: 24, filter: 'blur(8px)' }}
-      animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, scale: 1.01, y: -20, filter: 'blur(8px)' }}
+      className="relative z-10"
+      initial={{ opacity: 0, scale: 0.985, y: 24 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 1.01, y: -20 }}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
     >
       {content}
