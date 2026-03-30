@@ -3,6 +3,15 @@ export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      spacing: {
+        section: '6rem',
+        container: '1200px',
+      },
+      zIndex: {
+        base: '1',
+        overlay: '10',
+        modal: '100',
+      },
       colors: {
         ink: '#0F172A',
         neonCyan: '#22D3EE',
