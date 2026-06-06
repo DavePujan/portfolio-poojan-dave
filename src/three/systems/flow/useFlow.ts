@@ -6,12 +6,14 @@ import { EDGES } from '../../config/edges.config'
 import { NODES } from '../../config/nodes.config'
 import useSceneState from '../../hooks/useSceneState'
 
-export default function useFlow(disabled?: boolean) {
+export default function useFlow(disabled?: boolean, density?: number) {
   const meshRefs = useRef<Array<Mesh | null>>([])
   const { section, performanceMode } = useSceneState()
 
-  const flowCount = performanceMode === 'low' ? 0 : performanceMode === 'balanced' ? 12 : 20
   const sectionSpeed = section === 'projects' ? 1.6 : section === 'contact' ? 0.5 : 1
+  
+  const baseFlowCount = performanceMode === 'low' ? 0 : performanceMode === 'balanced' ? 12 : 20
+  const flowCount = Math.max(0, Math.floor(density ?? baseFlowCount))
 
   const flowPoints = useMemo(() => {
     if (flowCount === 0) {

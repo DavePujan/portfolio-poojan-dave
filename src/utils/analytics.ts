@@ -1,4 +1,7 @@
 type AnalyticsPayload = Record<string, string | number | boolean>
+let lastEventTime = 0
+const EVENT_THROTTLE_MS = 500
+
 
 declare global {
   interface Window {
@@ -8,6 +11,12 @@ declare global {
 }
 
 export function trackEvent(name: string, payload: AnalyticsPayload = {}) {
+  const now = Date.now()
+  if (now - lastEventTime < EVENT_THROTTLE_MS) {
+    return
+  }
+  lastEventTime = now
+  
   const eventPayload = { event: name, ...payload }
 
   if (typeof window !== 'undefined' && window.dataLayer) {

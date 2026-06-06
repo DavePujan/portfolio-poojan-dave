@@ -36,7 +36,12 @@ export default function FilterBar({ active, categories, setActive }: FilterBarPr
   }
 
   return (
-    <div className="mb-10 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Project categories" onKeyDown={handleKeyDown}>
+    <div
+      className="mb-10 flex flex-nowrap gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center sm:gap-3 sm:overflow-visible"
+      role="tablist"
+      aria-label="Project categories"
+      onKeyDown={handleKeyDown}
+    >
       {categories.map((category) => (
         <button
           key={category}
@@ -44,7 +49,7 @@ export default function FilterBar({ active, categories, setActive }: FilterBarPr
           role="tab"
           aria-selected={active === category}
           aria-controls={toPanelId(category)}
-          className={`cursor-pointer rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
+          className={`touch-target shrink-0 whitespace-nowrap rounded-full border px-3.5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 sm:px-4 sm:text-xs sm:tracking-[0.14em] ${
             active === category
               ? 'border-neonCyan/60 bg-neonCyan/20 text-neonCyan'
               : 'border-white/20 text-slate-200 hover:bg-white/10'

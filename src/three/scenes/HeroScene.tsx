@@ -1,9 +1,11 @@
 import CanvasWrapper from '../canvas/CanvasWrapper'
+import { lazy } from 'react'
 import useSceneState from '../hooks/useSceneState'
-import ContactSystemScene from './ContactSystemScene'
-import HeroSystemScene from './HeroSystemScene'
-import ProjectsSystemScene from './ProjectsSystemScene'
-import SkillsSystemScene from './SkillsSystemScene'
+
+const ContactSystemScene = lazy(() => import('./ContactSystemScene'))
+const HeroSystemScene = lazy(() => import('./HeroSystemScene'))
+const ProjectsSystemScene = lazy(() => import('./ProjectsSystemScene'))
+const SkillsSystemScene = lazy(() => import('./SkillsSystemScene'))
 
 type HeroSceneProps = {
   mode?: 'hero' | 'ambient'

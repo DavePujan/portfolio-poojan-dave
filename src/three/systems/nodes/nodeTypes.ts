@@ -5,6 +5,8 @@ export type SceneNode = {
   label: string
   position: [number, number, number]
   type: NodeType
+  color?: string
+  importance?: 'critical' | 'primary' | 'secondary'
 }
 
 export type VisualNode = SceneNode & {

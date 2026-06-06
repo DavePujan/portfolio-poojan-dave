@@ -2,10 +2,11 @@ import useFlow from './useFlow'
 
 type FlowParticlesProps = {
   disabled?: boolean
+  density?: number
 }
 
-export default function FlowParticles({ disabled = false }: FlowParticlesProps) {
-  const { flowPoints, meshRefs } = useFlow(disabled)
+export default function FlowParticles({ disabled = false, density }: FlowParticlesProps) {
+  const { flowPoints, meshRefs } = useFlow(disabled, density)
 
   if (flowPoints.length === 0) {
     return null

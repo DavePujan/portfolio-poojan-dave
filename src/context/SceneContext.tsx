@@ -10,6 +10,8 @@ type SceneState = {
   cameraMode: CameraMode
   interaction: InteractionMode
   focusNode?: string
+  hoverNode?: string
+  focusStrength: number
   intensity: number
   performanceMode: PerformanceMode
 }
@@ -22,6 +24,8 @@ type SceneContextType = {
   setCameraMode: (cameraMode: CameraMode) => void
   setInteraction: (interaction: InteractionMode) => void
   setFocusNode: (focusNode?: string) => void
+  setHoverNode: (hoverNode?: string) => void
+  setFocusStrength: (focusStrength: number) => void
   setPerformanceMode: (performanceMode: PerformanceMode, intensity?: number) => void
 }
 
@@ -33,6 +37,8 @@ export function SceneProvider({ children }: { children: ReactNode }) {
     cameraMode: 'wide',
     interaction: 'idle',
     focusNode: undefined,
+    hoverNode: undefined,
+    focusStrength: 0,
     intensity: 0.7,
     performanceMode: 'balanced',
   })
@@ -50,7 +56,15 @@ export function SceneProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setFocusNode = useCallback((focusNode?: string) => {
-    setSceneState((prev) => ({ ...prev, focusNode }))
+    setSceneState((prev) => ({ ...prev, focusNode, focusStrength: focusNode ? 1 : 0 }))
+  }, [])
+
+  const setHoverNode = useCallback((hoverNode?: string) => {
+    setSceneState((prev) => ({ ...prev, hoverNode }))
+  }, [])
+
+  const setFocusStrength = useCallback((focusStrength: number) => {
+    setSceneState((prev) => ({ ...prev, focusStrength }))
   }, [])
 
   const setPerformanceMode = useCallback((performanceMode: PerformanceMode, intensity?: number) => {
@@ -70,9 +84,11 @@ export function SceneProvider({ children }: { children: ReactNode }) {
       setCameraMode,
       setInteraction,
       setFocusNode,
+      setHoverNode,
+      setFocusStrength,
       setPerformanceMode,
     }),
-    [sceneState, setActiveSection, setCameraMode, setInteraction, setFocusNode, setPerformanceMode],
+    [sceneState, setActiveSection, setCameraMode, setInteraction, setFocusNode, setHoverNode, setFocusStrength, setPerformanceMode],
   )
 
   return <SceneContext.Provider value={value}>{children}</SceneContext.Provider>

@@ -24,28 +24,36 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="hero" className="relative min-h-screen overflow-hidden">
+    <section id="hero" data-section="hero" className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(34,211,238,0.08),transparent_35%),radial-gradient(circle_at_75%_10%,rgba(57,255,136,0.08),transparent_35%)]" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[52%] bg-[radial-gradient(circle_at_42%_36%,rgba(34,211,238,0.15),transparent_58%)]" />
       <div className="pointer-events-none absolute inset-0 noise-overlay" />
       <div className="pointer-events-none absolute inset-0 vignette-overlay" />
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 py-20 md:px-10">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10">
         <div className="grid w-full gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-          <div className="relative rounded-2xl border border-white/15 bg-white/5 p-8 backdrop-blur-2xl md:p-10">
+          <div className="relative rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-2xl sm:p-8 md:p-10">
             <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-neonCyan/25 blur-3xl" />
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-neonGreen">Pujan Dave • Full-Stack Product Engineer</p>
-            <h1 ref={titleRef} style={{ willChange: 'transform, opacity' }} className="mt-3 font-display text-5xl font-bold leading-tight text-white md:text-7xl">
+            <p className="font-body text-[11px] uppercase tracking-[0.18em] text-neonGreen sm:text-xs sm:tracking-[0.28em]">Pujan Dave • Full-Stack Product Engineer</p>
+            <h1
+              ref={titleRef}
+              style={{ willChange: 'transform, opacity' }}
+              className="mt-3 font-display text-3xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+            >
               I Engineer Products
               <span className="block text-neonCyan">That Feel Premium And Scale Calmly</span>
             </h1>
-            <p ref={subtitleRef} style={{ willChange: 'transform, opacity' }} className="mt-5 max-w-2xl font-body text-base leading-relaxed text-slate-200 md:text-lg">
+            <p
+              ref={subtitleRef}
+              style={{ willChange: 'transform, opacity' }}
+              className="mt-5 max-w-2xl font-body text-sm leading-relaxed text-slate-200 sm:text-base md:text-lg"
+            >
               My work sits at the intersection of visual storytelling and backend reliability. I build systems where frontend polish, async architecture, and operational visibility all ship together.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2.5">
               {proofSignals.map((signal) => (
-                <span key={signal} className="rounded-md border border-white/15 bg-black/30 px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-100">
+                <span key={signal} className="rounded-md border border-white/15 bg-black/30 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-slate-100 sm:text-xs">
                   {signal}
                 </span>
               ))}
@@ -57,25 +65,25 @@ export default function Hero() {
               <p className="rounded-md border border-white/10 bg-white/5 px-3 py-2">Workers → Redis / DB</p>
             </div>
 
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-9 flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
                 ref={ctaRef}
                 to="/projects"
                 style={{ willChange: 'transform, opacity' }}
-                className="cursor-pointer rounded-lg border border-neonCyan/45 bg-neonCyan/15 px-6 py-3 font-body text-sm font-semibold text-neonCyan shadow-glow transition-colors duration-200 hover:bg-neonCyan/25"
+                className="touch-target inline-flex w-full cursor-pointer items-center justify-center rounded-lg border border-neonCyan/45 bg-neonCyan/15 px-6 py-3.5 font-body text-sm font-semibold text-neonCyan shadow-glow transition-colors duration-200 hover:bg-neonCyan/25 sm:w-auto"
               >
-                View Case Studies
+                View Project Works
               </Link>
               <a
                 href="#contact"
-                className="cursor-pointer rounded-lg border border-white/20 bg-black/20 px-6 py-3 font-body text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10"
+                className="touch-target inline-flex w-full cursor-pointer items-center justify-center rounded-lg border border-white/20 bg-black/20 px-6 py-3.5 font-body text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10 sm:w-auto"
               >
                 Start A Conversation
               </a>
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-white/15 bg-black/25 p-6 backdrop-blur-xl md:p-7">
+          <aside className="rounded-2xl border border-white/15 bg-black/25 p-5 backdrop-blur-xl sm:p-6 md:p-7">
             <p className="text-xs uppercase tracking-[0.22em] text-neonBlue">Operating Principles</p>
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-200">
               <li className="rounded-lg border border-white/10 bg-white/5 p-3">Ship end-to-end ownership, not isolated UI tickets.</li>

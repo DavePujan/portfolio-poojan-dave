@@ -70,10 +70,10 @@ export default function Skills() {
   }, [])
 
   return (
-    <section id="skills" className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 md:px-10">
+    <section id="skills" data-section="skills" className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:px-10">
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl md:p-8">
-          <h2 className="font-display text-3xl font-bold text-white md:text-4xl">What I Bring To Engineering Teams</h2>
+        <div className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-xl sm:p-7 md:p-8">
+          <h2 className="font-display text-2xl font-bold text-white sm:text-3xl md:text-4xl">What I Bring To Engineering Teams</h2>
           <p className="mt-3 max-w-2xl text-slate-300">
             I am strongest where interface quality, backend systems, and measurable reliability need to be solved together.
           </p>
@@ -110,7 +110,7 @@ export default function Skills() {
                 }}
                 className="rounded-lg border border-white/10 bg-black/15 px-4 py-3 transition-colors duration-200 hover:border-neonCyan/40 hover:bg-black/30"
               >
-                <p className="font-display text-xl font-semibold text-white">{strength.title}</p>
+                <p className="font-display text-lg font-semibold text-white sm:text-xl">{strength.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-300">{strength.text}</p>
               </div>
             ))}
@@ -118,7 +118,7 @@ export default function Skills() {
         </div>
 
         <div className="space-y-8">
-          <div className="rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl md:p-8">
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-xl sm:p-7 md:p-8">
             <h3 className="font-display text-2xl font-bold text-white">Capability Map</h3>
             <div className="mt-5 space-y-5">
               {stackBands.map((band) => (
@@ -126,7 +126,7 @@ export default function Skills() {
                   <p className="text-xs uppercase tracking-[0.18em] text-neonBlue">{band.label}</p>
                   <div className="mt-2 flex flex-wrap gap-2.5">
                     {band.items.map((item) => (
-                      <span key={`${band.label}-${item}`} className="rounded-md border border-white/15 bg-black/25 px-3 py-1.5 text-xs font-semibold text-slate-100">
+                      <span key={`${band.label}-${item}`} className="rounded-md border border-white/15 bg-black/25 px-3 py-1.5 text-[11px] font-semibold text-slate-100 sm:text-xs">
                         {item}
                       </span>
                     ))}

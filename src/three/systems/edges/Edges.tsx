@@ -7,7 +7,7 @@ export default function Edges() {
   return (
     <group>
       {edges.map((edge) => (
-        <Line key={edge.id} points={[edge.from, edge.to]} color="#67E8F9" lineWidth={1.15} transparent opacity={edge.opacity} />
+        <Line key={edge.id} points={[edge.from, edge.to]} color="#67E8F9" linewidth={1} transparent opacity={edge.opacity} />
       ))}
     </group>
   )

@@ -17,7 +17,7 @@ export default function HeroSystemScene({ intensity, lowPerf }: SceneProps) {
       <CameraController />
       <Nodes />
       <Edges />
-      <FlowParticles disabled={lowPerf} />
+      <FlowParticles disabled={lowPerf} density={lowPerf ? 10 : 40} />
       {!lowPerf && (
         <EffectComposer enableNormalPass={false} multisampling={4}>
           <Bloom mipmapBlur intensity={0.62 * intensity} luminanceThreshold={0.18} luminanceSmoothing={0.55} />

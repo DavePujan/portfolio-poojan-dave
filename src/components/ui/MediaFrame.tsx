@@ -13,7 +13,7 @@ export default function MediaFrame({ src, alt, title, caption }: MediaFrameProps
   const shouldShowImage = Boolean(src) && !broken
 
   return (
-    <article className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-lg backdrop-blur-xl">
+    <article className="rounded-xl border border-white/10 bg-white/5 p-2.5 shadow-lg backdrop-blur-xl sm:p-3">
       <div className="relative overflow-hidden rounded-lg border border-white/10">
         {shouldShowImage ? (
           <>
@@ -24,11 +24,11 @@ export default function MediaFrame({ src, alt, title, caption }: MediaFrameProps
               loading="lazy"
               onLoad={() => setLoaded(true)}
               onError={() => setBroken(true)}
-              className={`h-44 w-full object-cover transition duration-300 hover:scale-105 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+              className={`h-40 w-full object-cover transition duration-300 hover:scale-105 sm:h-44 md:h-48 ${loaded ? 'opacity-100' : 'opacity-0'}`}
             />
           </>
         ) : (
-          <div className="h-44 w-full animate-pulse bg-gradient-to-r from-neonBlue/10 via-transparent to-neonGreen/10" />
+          <div className="h-40 w-full animate-pulse bg-gradient-to-r from-neonBlue/10 via-transparent to-neonGreen/10 sm:h-44 md:h-48" />
         )}
       </div>
       <h3 className="mt-3 text-base font-semibold text-white">{title}</h3>

@@ -1,7 +1,5 @@
 import CameraController from '../core/CameraController'
 import Lighting from '../core/Lighting'
-import Edges from '../systems/edges/Edges'
-import Nodes from '../systems/nodes/Nodes'
 
 type SceneProps = {
   intensity: number
@@ -10,10 +8,8 @@ type SceneProps = {
 export default function ContactSystemScene({ intensity }: SceneProps) {
   return (
     <>
-      <Lighting intensity={intensity * 0.5} />
+      <Lighting intensity={intensity * 0.35} />
       <CameraController />
-      <Nodes />
-      <Edges />
     </>
   )
 }

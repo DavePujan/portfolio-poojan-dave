@@ -16,9 +16,6 @@ export default defineConfig({
           if (id.includes('node_modules/gsap')) {
             return 'gsap-chunk'
           }
-          if (id.includes('node_modules/three') || id.includes('node_modules/@react-three')) {
-            return 'three-chunk'
-          }
         },
       },
     },

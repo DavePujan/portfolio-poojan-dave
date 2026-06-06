@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <RootLayout>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <AppRoutes key={location.pathname} location={location} />
       </AnimatePresence>
     </RootLayout>

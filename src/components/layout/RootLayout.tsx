@@ -11,9 +11,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         Skip to main content
       </a>
       <FullPageHeroBackground />
-      <div id="main-content" className="relative z-10" tabIndex={-1}>
+      <main id="main-content" className="relative z-10" tabIndex={-1}>
         {children}
-      </div>
+      </main>
     </div>
   )
 }

@@ -21,11 +21,12 @@ export default function useNodes(): VisualNode[] {
       const isFocusedNode = focusNode === node.id
       const isSectionNode = sectionNodes.has(node.id)
       const isActive = focusActive ? isFocusedNode : isSectionNode
+      const depthFactor = focusActive ? (isFocusedNode ? 1 : 0.3) : 1
 
       const baseScale = isActive ? 1.12 : 0.92
       const hoverBoost = interaction === 'hover' && isActive ? 0.14 : 0
       const scale = baseScale + hoverBoost
-      const opacity = isActive ? 1 : focusActive ? 0.16 : 0.38
+      const opacity = (isActive ? 1 : 0.38) * depthFactor
 
       return {
         ...node,

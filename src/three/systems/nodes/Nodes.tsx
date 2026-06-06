@@ -1,9 +1,10 @@
 import { Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import type { Mesh, MeshStandardMaterial } from 'three'
 import * as THREE from 'three'
 import useSceneState from '../../hooks/useSceneState'
+import useMobile from '../../../hooks/useMobile'
 import useNodes from './useNodes'
 import type { NodeType } from './nodeTypes'
 
@@ -17,15 +18,38 @@ const colorByType: Record<NodeType, string> = {
 }
 
 type NodeVisualProps = {
+  id: string
   label: string
   position: [number, number, number]
   type: NodeType
   scale: number
   opacity: number
   isActive: boolean
+  isHovered: boolean
+  isFocused: boolean
+  interactive: boolean
+  onHover: (nodeId: string) => void
+  onBlur: () => void
+  onFocus: (nodeId: string) => void
+  isMobile: boolean
 }
 
-function NodeVisual({ label, position, type, scale, opacity, isActive }: NodeVisualProps) {
+function NodeVisual({
+  id,
+  label,
+  position,
+  type,
+  scale,
+  opacity,
+  isActive,
+  isHovered,
+  isFocused,
+  interactive,
+  onHover,
+  onBlur,
+  onFocus,
+  isMobile,
+}: NodeVisualProps) {
   const meshRef = useRef<Mesh>(null)
   const materialRef = useRef<MeshStandardMaterial>(null)
 
@@ -41,22 +65,55 @@ function NodeVisual({ label, position, type, scale, opacity, isActive }: NodeVis
 
     meshRef.current.scale.setScalar(nextScale)
     materialRef.current.opacity = opacity
-    materialRef.current.emissiveIntensity = isActive ? 1.6 : 0.45
+    materialRef.current.emissiveIntensity = isFocused ? 2 : isHovered ? 1 : isActive ? 1.2 : 0.45
   })
 
+  const nodeColor = isFocused ? '#22C55E' : isHovered ? '#38BDF8' : colorByType[type]
+
   return (
-    <mesh ref={meshRef} position={position}>
+    <mesh
+      ref={meshRef}
+      position={position}
+      onPointerOver={(event) => {
+        if (!interactive) {
+          return
+        }
+        event.stopPropagation()
+        onHover(id)
+      }}
+      onPointerOut={(event) => {
+        if (!interactive) {
+          return
+        }
+        event.stopPropagation()
+        onBlur()
+      }}
+      onClick={(event) => {
+        if (!interactive) {
+          return
+        }
+        event.stopPropagation()
+        onFocus(id)
+      }}
+      onPointerDown={(event) => {
+        if (!interactive || !isMobile) {
+          return
+        }
+        event.stopPropagation()
+        onFocus(id)
+      }}
+    >
       <sphereGeometry args={[0.13, 18, 18]} />
       <meshStandardMaterial
         ref={materialRef}
-        color={colorByType[type]}
-        emissive={colorByType[type]}
+        color={nodeColor}
+        emissive={nodeColor}
         roughness={0.35}
         metalness={0.2}
         transparent
         opacity={opacity}
       />
-      {isActive && (
+      {(isActive || isHovered || isFocused) && (
         <Html distanceFactor={11} position={[0, 0.26, 0]}>
           <div className="rounded border border-white/15 bg-slate-950/70 px-2 py-1 text-[10px] font-semibold tracking-[0.12em] text-neonCyan backdrop-blur-sm">
             {label}
@@ -69,35 +126,61 @@ function NodeVisual({ label, position, type, scale, opacity, isActive }: NodeVis
 
 export default function Nodes() {
   const nodes = useNodes()
-  const { setFocusNode, setInteraction, section } = useSceneState()
+  const { setFocusNode, setHoverNode, setInteraction, setCameraMode, section, hoverNode, focusNode } = useSceneState()
+  const isMobile = useMobile()
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const interactive = section === 'skills'
+  const interactive = section === 'hero' || section === 'skills' || section === 'projects'
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleHover = (nodeId: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+      hoverTimeoutRef.current = null
+    }
+    setHoverNode(nodeId)
+    setInteraction('hover')
+  }
+
+  const handleHoverOut = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoverNode(undefined)
+      setInteraction('idle')
+      hoverTimeoutRef.current = null
+    }, 50)
+  }
+
+  const handleFocus = (nodeId: string) => {
+    setFocusNode(nodeId)
+    setHoverNode(undefined)
+    setCameraMode('focus')
+    setInteraction('hover')
+  }
 
   return (
-    <group
-      onPointerOver={() => {
-        if (interactive) {
-          setInteraction('hover')
-        }
-      }}
-      onPointerOut={() => {
-        if (interactive) {
-          setInteraction('idle')
-          setFocusNode(undefined)
-        }
-      }}
-    >
+    <group>
       {nodes.map((node) => (
-        <group
+        <NodeVisual
           key={node.id}
-          onPointerOver={() => {
-            if (interactive) {
-              setFocusNode(node.id)
-            }
-          }}
-        >
-          <NodeVisual {...node} />
-        </group>
+          {...node}
+          isHovered={hoverNode === node.id}
+          isFocused={focusNode === node.id}
+          interactive={interactive}
+          onHover={handleHover}
+          onBlur={handleHoverOut}
+          onFocus={handleFocus}
+          isMobile={isMobile}
+        />
       ))}
     </group>
   )

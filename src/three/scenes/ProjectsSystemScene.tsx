@@ -17,7 +17,7 @@ export default function ProjectsSystemScene({ intensity, lowPerf }: SceneProps) 
       <CameraController />
       <Nodes />
       <Edges />
-      <FlowParticles disabled={false} />
+      <FlowParticles disabled={lowPerf} />
       {!lowPerf && (
         <EffectComposer enableNormalPass={false} multisampling={2}>
           <Bloom mipmapBlur intensity={0.52 * intensity} luminanceThreshold={0.2} luminanceSmoothing={0.5} />

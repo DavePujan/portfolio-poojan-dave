@@ -18,15 +18,42 @@ body,
   min-height: 100%;
 }
 
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: 'Sora', sans-serif;
+  line-height: 1.5;
   background-color: #0f172a;
   color: #e2e8f0;
 }
 
+img,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
 a {
   text-decoration: none;
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
 }
 
 .noise-overlay {

@@ -74,11 +74,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       onMouseMove={isMobile ? undefined : handleMouseMove}
       onMouseLeave={resetCard}
       onClick={() => navigate(`/projects/${project.id}`)}
-      className="group cursor-pointer rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-2xl transition duration-200 hover:border-neonCyan/50 hover:bg-neonCyan/10"
+      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-2xl transition duration-200 hover:border-neonCyan/50 hover:bg-neonCyan/10 sm:p-7"
       role="button"
       tabIndex={0}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
           navigate(`/projects/${project.id}`)
         }
       }}
@@ -87,9 +88,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="relative z-10">
         <p className="font-body text-xs uppercase tracking-[0.26em] text-neonGreen">Engineering Story</p>
-        <h3 className="mt-2 font-display text-3xl font-bold text-white">{project.title}</h3>
+        <h3 className="mt-2 break-words font-display text-2xl font-bold text-white sm:text-3xl">{project.title}</h3>
         <p className="mt-3 text-sm leading-relaxed text-slate-200">{project.tagline}</p>
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="rounded-md border border-neonBlue/35 bg-neonBlue/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.2em] text-neonBlue">{project.category}</span>
           <span className="rounded-md border border-white/15 bg-black/25 px-2.5 py-1 text-[11px] uppercase tracking-[0.2em] text-slate-300">{project.tier.replace('-', ' ')}</span>
         </div>
@@ -102,7 +103,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
 
-        <p className="mt-5 text-sm font-semibold text-neonCyan">Decision focus: {project.highlight}</p>
+        <p className="mt-5 break-words text-sm font-semibold text-neonCyan">Decision focus: {project.highlight}</p>
         <p className="mt-3 text-sm text-slate-300">{project.summary}</p>
 
         <p className="mt-6 inline-flex items-center text-sm font-semibold text-white transition-colors duration-200 group-hover:text-neonGreen">

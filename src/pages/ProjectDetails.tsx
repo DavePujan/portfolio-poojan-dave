@@ -11,9 +11,9 @@ import projects from '../sections/projects/projectDetails'
 
 function CaseStudyBlock({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl md:p-8">
-      <h2 className="font-display text-3xl font-bold text-white">{title}</h2>
-      <div className="mt-4 text-slate-200">{children}</div>
+    <section className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-xl sm:p-7 md:p-8">
+      <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">{title}</h2>
+      <div className="mt-4 break-words text-slate-200">{children}</div>
     </section>
   )
 }
@@ -40,12 +40,12 @@ export default function ProjectDetails() {
 
   if (!project) {
     return (
-      <main className="mx-auto flex min-h-screen w-full max-w-4xl items-center justify-center px-6 text-slate-100">
-        <div className="rounded-2xl border border-white/15 bg-white/5 p-8 text-center backdrop-blur-xl">
-          <h1 className="font-display text-4xl font-bold text-white">Project Not Found</h1>
+      <main className="mx-auto flex min-h-screen w-full max-w-4xl items-center justify-center px-4 text-slate-100 sm:px-6">
+        <div className="rounded-2xl border border-white/15 bg-white/5 p-6 text-center backdrop-blur-xl sm:p-8">
+          <h1 className="font-display text-3xl font-bold text-white sm:text-4xl">Project Not Found</h1>
           <Link
             to="/projects"
-            className="mt-6 inline-flex cursor-pointer rounded-lg border border-neonCyan/45 bg-neonCyan/15 px-5 py-2.5 text-sm font-semibold text-neonCyan transition-colors duration-200 hover:bg-neonCyan/25"
+            className="touch-target mt-6 inline-flex w-full cursor-pointer items-center justify-center rounded-lg border border-neonCyan/45 bg-neonCyan/15 px-5 py-3 text-sm font-semibold text-neonCyan transition-colors duration-200 hover:bg-neonCyan/25 sm:w-auto"
           >
             Back To Projects
           </Link>
@@ -55,8 +55,8 @@ export default function ProjectDetails() {
   }
 
   return (
-    <main className="relative bg-ink bg-mesh px-6 py-20 text-slate-100 md:px-10">
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45 }} className="mx-auto flex w-full max-w-6xl flex-col gap-10">
+    <main className="relative bg-ink bg-mesh px-4 py-14 text-slate-100 sm:px-6 sm:py-20 md:px-10">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45 }} className="mx-auto flex w-full max-w-6xl flex-col gap-8 sm:gap-10">
         <ProjectHeader project={project} />
 
         <CaseStudyBlock title="Core Features">
@@ -83,7 +83,7 @@ export default function ProjectDetails() {
         </CaseStudyBlock>
 
         <CaseStudyBlock title="Request Lifecycle">
-          <div className="rounded-xl border border-white/10 bg-black/25 p-5">
+          <div className="rounded-xl border border-white/10 bg-black/25 p-4 sm:p-5">
             <ol className="space-y-2 text-slate-300">
               {memoizedRequestLifecycle.map((step, index) => (
                 <li key={step}>
@@ -177,13 +177,13 @@ export default function ProjectDetails() {
         <div className="flex flex-wrap gap-3">
           <Link
             to="/projects"
-            className="cursor-pointer rounded-lg border border-neonCyan/45 bg-neonCyan/15 px-5 py-2.5 text-sm font-semibold text-neonCyan transition-colors duration-200 hover:bg-neonCyan/25"
+            className="touch-target inline-flex w-full cursor-pointer items-center justify-center rounded-lg border border-neonCyan/45 bg-neonCyan/15 px-5 py-3 text-sm font-semibold text-neonCyan transition-colors duration-200 hover:bg-neonCyan/25 sm:w-auto"
           >
             Back To Dashboard
           </Link>
           <Link
             to="/"
-            className="cursor-pointer rounded-lg border border-white/25 bg-black/20 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10"
+            className="touch-target inline-flex w-full cursor-pointer items-center justify-center rounded-lg border border-white/25 bg-black/20 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10 sm:w-auto"
           >
             Back To Home
           </Link>

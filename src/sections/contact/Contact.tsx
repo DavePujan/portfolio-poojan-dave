@@ -84,9 +84,9 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="mx-auto w-full max-w-7xl px-6 pb-24 md:px-10">
-      <div className="rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl md:p-10">
-        <h2 className="font-display text-3xl font-bold text-white md:text-4xl">Let’s Build Something Serious</h2>
+    <section id="contact" data-section="contact" className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 sm:pb-24 md:px-10">
+      <div className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-xl sm:p-7 md:p-10">
+        <h2 className="font-display text-2xl font-bold text-white sm:text-3xl md:text-4xl">Let’s Build Something Serious</h2>
         <p className="mt-3 max-w-3xl text-slate-300">
           If you are hiring for product engineering, backend-heavy frontend work, or full-stack system design ownership, send context and I will respond with a concrete plan.
         </p>
@@ -119,7 +119,7 @@ export default function Contact() {
                   setFormErrors((prev) => ({ ...prev, name: undefined }))
                 }}
                 placeholder="Your name"
-                className="w-full rounded-lg border border-white/15 bg-slate-950/70 px-4 py-3 text-slate-100 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-neonCyan/70"
+                className="touch-target w-full rounded-lg border border-white/15 bg-slate-950/70 px-4 py-3.5 text-base text-slate-100 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-neonCyan/70"
                 required
               />
               {formErrors.name && <p className="text-xs text-rose-300">{formErrors.name}</p>}
@@ -135,7 +135,7 @@ export default function Contact() {
                   setFormErrors((prev) => ({ ...prev, email: undefined }))
                 }}
                 placeholder="you@domain.com"
-                className="w-full rounded-lg border border-white/15 bg-slate-950/70 px-4 py-3 text-slate-100 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-neonCyan/70"
+                className="touch-target w-full rounded-lg border border-white/15 bg-slate-950/70 px-4 py-3.5 text-base text-slate-100 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-neonCyan/70"
                 required
               />
               {formErrors.email && <p className="text-xs text-rose-300">{formErrors.email}</p>}
@@ -151,7 +151,7 @@ export default function Contact() {
                 }}
                 placeholder="Share your role, current constraints, and what success looks like"
                 rows={5}
-                className="w-full rounded-lg border border-white/15 bg-slate-950/70 px-4 py-3 text-slate-100 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-neonCyan/70"
+                className="w-full rounded-lg border border-white/15 bg-slate-950/70 px-4 py-3 text-base text-slate-100 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-neonCyan/70"
                 required
               />
               {formErrors.message && <p className="text-xs text-rose-300">{formErrors.message}</p>}
@@ -159,7 +159,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-neonGreen/45 bg-neonGreen/15 px-6 py-3 text-sm font-semibold text-neonGreen transition duration-200 hover:-translate-y-0.5 hover:bg-neonGreen/25 disabled:cursor-not-allowed disabled:opacity-60"
+              className="touch-target inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-neonGreen/45 bg-neonGreen/15 px-6 py-3.5 text-sm font-semibold text-neonGreen transition duration-200 hover:-translate-y-0.5 hover:bg-neonGreen/25 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               disabled={status === 'sending'}
             >
               <span>{status === 'sending' ? 'Sending...' : 'Send Project Context'}</span>
@@ -178,27 +178,32 @@ export default function Contact() {
           {fallbackMessage && <p className="mt-2 rounded-lg border border-neonCyan/25 bg-neonCyan/10 px-3 py-2 text-neonCyan">{fallbackMessage}</p>}
         </div>
 
-        <div className="mt-8 grid gap-2 text-sm text-slate-300 md:grid-cols-3">
-          <p>
+        <div className="mt-8 grid gap-3 text-sm text-slate-300 md:grid-cols-3">
+          <p className="rounded-lg border border-white/10 bg-black/20 p-3">
             Email:
-            <a href={`mailto:${contactProfile.email}`} className="ml-2 cursor-pointer text-neonCyan transition-colors duration-200 hover:text-neonGreen">
+            <a href={`mailto:${contactProfile.email}`} className="ml-0 mt-1 inline-block cursor-pointer break-all text-neonCyan transition-colors duration-200 hover:text-neonGreen sm:ml-2 sm:mt-0 sm:break-normal">
               {contactProfile.email}
             </a>
           </p>
-          <p>
+          <p className="rounded-lg border border-white/10 bg-black/20 p-3">
             LinkedIn:
             <a
               href={contactProfile.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="ml-2 cursor-pointer text-neonCyan transition-colors duration-200 hover:text-neonGreen"
+              className="ml-0 mt-1 inline-block cursor-pointer break-all text-neonCyan transition-colors duration-200 hover:text-neonGreen sm:ml-2 sm:mt-0 sm:break-normal"
             >
               linkedin.com/in/poojan-dave
             </a>
           </p>
-          <p>
+          <p className="rounded-lg border border-white/10 bg-black/20 p-3">
             GitHub:
-            <a href={contactProfile.github} target="_blank" rel="noreferrer" className="ml-2 cursor-pointer text-neonCyan transition-colors duration-200 hover:text-neonGreen">
+            <a
+              href={contactProfile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="ml-0 mt-1 inline-block cursor-pointer break-all text-neonCyan transition-colors duration-200 hover:text-neonGreen sm:ml-2 sm:mt-0 sm:break-normal"
+            >
               github.com/DavePujan
             </a>
           </p>
