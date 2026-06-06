@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://portfolio-poojan-dave-95ngtzxth-dave-pujan-s-projects.vercel.app/sitemap.xml
