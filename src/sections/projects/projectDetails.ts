@@ -685,6 +685,7 @@ const projects: ProjectCaseStudy[] = [
       {
         title: 'Different Quality Outputs',
         caption: 'Multiple bitrate variants generated for adaptive playback, including 360p, 720p, and 1080p.',
+        src: '/hls/hls_06.png',
       },
     ],
     resumeVersion:
