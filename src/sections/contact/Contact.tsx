@@ -17,7 +17,7 @@ const initialState: ContactForm = {
 }
 
 const contactProfile = {
-  email: 'hello@poojandave.dev',
+  email: 'pujan.work1@gmail.com',
   linkedin: 'https://linkedin.com/in/poojan-dave',
   github: 'https://github.com/DavePujan',
 }
